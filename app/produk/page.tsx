@@ -159,7 +159,6 @@ function ProdukContent() {
           </p>
           <button
             onClick={() => {
-              setQueryInput('');
               router.push('/produk');
             }}
             className="px-5 py-2.5 bg-emerald-600 text-white font-bold text-xs md:text-sm rounded-lg hover:bg-emerald-700 transition-colors shadow-sm cursor-pointer"
