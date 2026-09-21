@@ -124,13 +124,13 @@ function ProdukContent() {
     <div className="space-y-6 pb-16">
       {/* Header Navigation */}
       <div>
-        <button
-          onClick={() => router.back()}
+        <Link
+          href="/kategori"
           className="inline-flex items-center text-sm font-medium text-slate-500 hover:text-emerald-600 transition-colors mb-2 cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4 mr-1" />
           Kembali
-        </button>
+        </Link>
         <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
           Daftar Produk Kesehatan
         </h1>
@@ -172,6 +172,7 @@ function ProdukContent() {
             <Link
               key={product.id}
               href={`/produk/${product.id}`}
+              prefetch={false}
               className="group bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md hover:border-emerald-200 transition-all flex flex-col h-full"
             >
               {/* Product Thumbnail / Badge */}

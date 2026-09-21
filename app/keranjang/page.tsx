@@ -1,32 +1,17 @@
 "use client";
 
-import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-
-// Dummy data keranjang (akan diganti global state nanti)
-const initialCart = [
-  {
-    id: '1',
-    name: 'Paracetamol 500mg - 10 Tablet',
-    price: 8500,
-    quantity: 2,
-    category: 'Obat Bebas',
-    isPrescription: false,
-  },
-  {
-    id: '2',
-    name: 'Amoxicillin 500mg - Strip 10 Kapsul',
-    price: 15000,
-    quantity: 1,
-    category: 'Obat Keras',
-    isPrescription: true,
-  },
-];
+import { useCart } from '@/context/CartContext';
 
 export default function KeranjangPage() {
   const router = useRouter();
-  const [cartItems, setCartItems] = useState(initialCart);
+  const {
+    items: cartItems,
+    updateQuantity: updateQty,
+    removeItem,
+    subtotal,
+  } = useCart();
 
   const formatRupiah = (value: number) =>
     new Intl.NumberFormat('id-ID', {
@@ -34,25 +19,6 @@ export default function KeranjangPage() {
       currency: 'IDR',
       minimumFractionDigits: 0,
     }).format(value);
-
-  const updateQty = (id: string, delta: number) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + delta) }
-          : item
-      )
-    );
-  };
-
-  const removeItem = (id: string) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
-  };
-
-  const subtotal = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
 
   const isEmpty = cartItems.length === 0;
 
@@ -70,7 +36,7 @@ export default function KeranjangPage() {
             </svg>
             Kembali
           </button>
-          <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
+          <h1 className="text-2xl md:text-3xl font-extrabold text-slate-800 tracking-tight">
             Keranjang Belanja
           </h1>
         </div>
@@ -81,15 +47,15 @@ export default function KeranjangPage() {
 
       {isEmpty ? (
         /* State kosong */
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-12 flex flex-col items-center justify-center text-center">
+        <div className="bg-white rounded-2xl border border-slate-100 p-12 flex flex-col items-center justify-center text-center">
           <svg className="w-20 h-20 text-slate-200 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
           </svg>
-          <h2 className="text-lg font-bold text-slate-700 mb-1">Keranjang Anda masih kosong</h2>
+          <h2 className="text-lg font-bold text-slate-800 mb-1">Keranjang Anda masih kosong</h2>
           <p className="text-sm text-slate-400 mb-6">Yuk, cari obat atau produk kesehatan yang Anda butuhkan.</p>
           <Link
             href="/kategori"
-            className="px-6 py-2.5 bg-emerald-600 text-white font-bold rounded-lg hover:bg-emerald-700 transition-colors"
+            className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition-colors shadow-sm shadow-emerald-600/20"
           >
             Mulai Belanja
           </Link>
@@ -102,10 +68,10 @@ export default function KeranjangPage() {
             {cartItems.map((item) => (
               <div
                 key={item.id}
-                className="bg-white rounded-xl shadow-sm border border-slate-100 p-4 md:p-5 flex gap-4 items-start"
+                className="bg-white rounded-2xl border border-slate-100 p-4 md:p-5 flex gap-4 items-start shadow-sm"
               >
                 {/* Placeholder Gambar */}
-                <div className="w-20 h-20 md:w-24 md:h-24 bg-slate-50 rounded-lg border border-slate-100 flex items-center justify-center flex-shrink-0">
+                <div className="w-20 h-20 md:w-24 md:h-24 bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-center flex-shrink-0">
                   <svg className="w-8 h-8 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                   </svg>
@@ -118,18 +84,18 @@ export default function KeranjangPage() {
                       {/* Badge Golongan */}
                       <div className="flex items-center gap-1.5 mb-1">
                         {item.isPrescription ? (
-                          <div className="w-4 h-4 rounded-full bg-red-500 border-[1.5px] border-black flex items-center justify-center" title="Obat Keras">
-                            <span className="text-black text-[8px] font-bold leading-none">K</span>
+                          <div className="w-4 h-4 rounded-full bg-rose-500 border border-slate-900/40 flex items-center justify-center" title="Obat Keras">
+                            <span className="text-white text-[8px] font-bold leading-none">K</span>
                           </div>
                         ) : (
-                          <div className="w-4 h-4 rounded-full bg-green-500 border-[1.5px] border-black" title="Obat Bebas"></div>
+                          <div className="w-4 h-4 rounded-full bg-emerald-500 border border-slate-900/40" title="Obat Bebas"></div>
                         )}
                         <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
                           {item.category}
                         </span>
                       </div>
 
-                      <h3 className="font-bold text-slate-800 text-sm md:text-base leading-snug truncate">
+                      <h3 className="font-bold text-slate-800 text-sm md:text-base leading-snug line-clamp-2">
                         {item.name}
                       </h3>
                     </div>
@@ -137,7 +103,7 @@ export default function KeranjangPage() {
                     {/* Tombol Hapus */}
                     <button
                       onClick={() => removeItem(item.id)}
-                      className="p-1.5 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors flex-shrink-0"
+                      className="p-1.5 text-slate-300 hover:text-rose-500 hover:bg-rose-50 rounded-lg transition-colors flex-shrink-0 cursor-pointer"
                       title="Hapus item"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -153,10 +119,10 @@ export default function KeranjangPage() {
                     </p>
 
                     {/* Counter */}
-                    <div className="flex items-center bg-slate-50 border border-slate-200 rounded-lg">
+                    <div className="flex items-center bg-slate-50 border border-slate-200 rounded-xl overflow-hidden">
                       <button
                         onClick={() => updateQty(item.id, -1)}
-                        className="w-9 h-9 flex items-center justify-center text-slate-500 hover:text-emerald-600 font-bold active:scale-95 transition-colors"
+                        className="w-9 h-9 flex items-center justify-center text-slate-500 hover:text-emerald-600 font-bold active:scale-95 transition-colors cursor-pointer"
                       >
                         −
                       </button>
@@ -165,7 +131,7 @@ export default function KeranjangPage() {
                       </span>
                       <button
                         onClick={() => updateQty(item.id, 1)}
-                        className="w-9 h-9 flex items-center justify-center text-slate-500 hover:text-emerald-600 font-bold active:scale-95 transition-colors"
+                        className="w-9 h-9 flex items-center justify-center text-slate-500 hover:text-emerald-600 font-bold active:scale-95 transition-colors cursor-pointer"
                       >
                         +
                       </button>
@@ -178,7 +144,7 @@ export default function KeranjangPage() {
 
           {/* Kanan: Ringkasan Belanja */}
           <div className="lg:w-80 xl:w-96 flex-shrink-0">
-            <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-5 md:p-6 sticky top-24 space-y-5">
+            <div className="bg-white rounded-2xl border border-slate-100 p-5 md:p-6 sticky top-24 space-y-5 shadow-sm">
               <h2 className="font-bold text-slate-800 text-lg">Ringkasan Belanja</h2>
 
               <div className="space-y-3 text-sm">
@@ -205,14 +171,10 @@ export default function KeranjangPage() {
 
               <button
                 onClick={() => {
-                  console.log('[CHECKOUT] Navigasi ke halaman checkout dengan subtotal:', subtotal);
                   router.push('/checkout');
                 }}
-                className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg shadow-md shadow-emerald-600/20 transition-colors active:scale-[0.98] flex items-center justify-center gap-2"
+                className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-md shadow-emerald-600/20 transition-colors active:scale-[0.98] flex items-center justify-center cursor-pointer text-center"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
                 Lanjut ke Pembayaran
               </button>
 

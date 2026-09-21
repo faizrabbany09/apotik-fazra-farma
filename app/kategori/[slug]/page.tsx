@@ -1,7 +1,6 @@
-
-
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import { ProductGrid } from '@/components/ui/ProductGrid';
 
 // Helper to convert slug to Title Case
 const formatTitle = (slug: string) =>
@@ -10,11 +9,13 @@ const formatTitle = (slug: string) =>
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 
-// Dummy product data (8 items)
+// Dummy product data (8 items) – akan diganti dengan fetch Supabase
 const dummyProducts = Array.from({ length: 8 }).map((_, i) => ({
-  id: i + 1,
-  name: `Produk ${i + 1}`,
-  price: (i + 1) * 10000,
+  id: String(i + 1),
+  name: `Produk Kesehatan ${i + 1}`,
+  price: (i + 1) * 12500,
+  category: i % 3 === 0 ? 'Obat Keras' : i % 2 === 0 ? 'Obat Bebas Terbatas' : 'Obat Bebas',
+  isPrescription: i % 3 === 0,
 }));
 
 export default async function CategorySlugPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -22,39 +23,25 @@ export default async function CategorySlugPage({ params }: { params: Promise<{ s
   const title = formatTitle(resolvedParams.slug);
 
   return (
-    <section className="max-w-7xl mx-auto px-4 py-8">
+    <section className="space-y-6 pb-12">
       {/* Back to categories */}
-      <div className="mb-4">
+      <div>
         <Link
           href="/kategori"
-          className="inline-flex items-center gap-1 text-emerald-600 hover:underline"
+          prefetch={false}
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-emerald-600 transition-colors mb-2 cursor-pointer"
         >
           <ArrowLeft size={16} />
           Kembali ke Kategori
         </Link>
+        <h1 className="text-2xl md:text-3xl font-extrabold text-slate-800 tracking-tight">{title}</h1>
+        <p className="text-xs md:text-sm text-slate-500 mt-1">
+          Menampilkan obat &amp; produk kesehatan dalam kategori {title}
+        </p>
       </div>
 
-      <h1 className="text-2xl font-bold text-slate-800 mb-6">{title}</h1>
-
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {dummyProducts.map((product) => (
-          <div
-            key={product.id}
-            className="bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col"
-          >
-            {/* Image placeholder */}
-            <div className="bg-slate-100 aspect-square rounded-t-xl" />
-            {/* Info */}
-            <div className="p-3 flex flex-col flex-1">
-              <h2 className="font-semibold text-slate-800 mb-1">{product.name}</h2>
-              <p className="text-emerald-600 font-bold mb-2">Rp {product.price.toLocaleString()}</p>
-              <button className="mt-auto w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-b-xl transition-colors">
-                Tambah
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+      {/* ProductGrid menghubungkan CartContext ke setiap ProductCard */}
+      <ProductGrid products={dummyProducts} />
     </section>
   );
 }

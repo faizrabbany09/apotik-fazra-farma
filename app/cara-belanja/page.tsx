@@ -28,8 +28,11 @@ const selfPickupSteps = [
     number: 3,
     icon: Store,
     title: 'Ambil & Bayar di Apotek',
-    description:
-      <>Admin kami akan menyiapkan pesanan Anda. Silakan datang ke Apotek Fazra Farma untuk mengambil barang tanpa perlu mengantre. Pembayaran dapat dilakukan langsung di kasir menggunakan <span className="font-bold text-slate-700">Debit, QRIS, atau Tunai</span>.</>,
+    description: (
+      <>
+        Admin kami akan menyiapkan pesanan Anda. Silakan datang ke Apotek Fazra Farma untuk mengambil barang tanpa perlu antre. Anda dapat membayar secara online melalui website (Transfer Bank), atau membayar langsung di kasir saat pengambilan menggunakan <span className="font-bold text-slate-700">Debit (EDC) maupun Tunai</span>.
+      </>
+    ),
   },
 ];
 
@@ -43,22 +46,22 @@ export default function CaraBelanja() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen pb-16">
+    <div className="min-h-screen pb-16 space-y-6">
 
       {/* ── HEADER ─────────────────────────────────────────────────── */}
-      <div className="mb-8">
+      <div>
         <button
           onClick={() => router.back()}
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-emerald-600 transition-colors mb-4 cursor-pointer"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors mb-4 cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" />
           Kembali
         </button>
 
-        <h1 className="text-2xl md:text-3xl font-bold text-slate-800 tracking-tight">
+        <h1 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
           Cara Belanja
         </h1>
-        <p className="text-sm text-slate-400 mt-1">
+        <p className="text-sm text-slate-600 mt-1">
           Pilih cara berbelanja yang paling nyaman untuk Anda.
         </p>
       </div>
@@ -68,7 +71,7 @@ export default function CaraBelanja() {
         {/* ══════════════════════════════════════════════════════════════
             OPSI 1: PESAN ANTAR VIA GRAB (highlighted / primary)
         ══════════════════════════════════════════════════════════════ */}
-        <div className="relative bg-emerald-600 rounded-2xl p-6 md:p-7 shadow-md overflow-hidden">
+        <div className="relative bg-emerald-600 rounded-2xl p-6 md:p-7 shadow-md overflow-hidden text-white">
           {/* Dekorasi background subtle */}
           <div className="absolute -right-8 -top-8 w-40 h-40 rounded-full bg-emerald-500/30 pointer-events-none" />
           <div className="absolute -right-2 -bottom-10 w-32 h-32 rounded-full bg-emerald-700/30 pointer-events-none" />
@@ -122,7 +125,7 @@ export default function CaraBelanja() {
               <span className="inline-block mb-0.5 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest bg-slate-100 text-slate-500 rounded-full">
                 Opsi 2
               </span>
-              <h2 className="text-base md:text-lg font-bold text-slate-800 leading-tight">
+              <h2 className="text-base md:text-lg font-bold text-slate-900 leading-tight">
                 Ambil di Toko
                 <span className="ml-2 text-xs font-semibold text-slate-400">(Self Pick-Up)</span>
               </h2>
@@ -150,12 +153,12 @@ export default function CaraBelanja() {
                 {/* Konten */}
                 <div className="pb-2 min-w-0">
                   <div className="flex items-center gap-2 mb-0.5">
-                    <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">
+                    <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">
                       0{number}
                     </span>
-                    <h3 className="text-sm font-bold text-slate-800">{title}</h3>
+                    <h3 className="text-sm font-bold text-slate-900">{title}</h3>
                   </div>
-                  <p className="text-xs md:text-sm text-slate-500 leading-relaxed">
+                  <p className="text-xs md:text-sm text-slate-600 leading-relaxed">
                     {description}
                   </p>
                 </div>
@@ -166,20 +169,20 @@ export default function CaraBelanja() {
 
         {/* ── INFO APOTEK ─────────────────────────────────────────────── */}
         <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 md:p-6 space-y-2">
-          <h3 className="text-xs font-bold text-slate-600 uppercase tracking-wider">
+          <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider">
             📍 Lokasi Apotek
           </h3>
-          <div className="text-xs text-slate-500 space-y-1 leading-relaxed">
+          <div className="text-xs text-slate-600 space-y-1 leading-relaxed">
             <p>
-              <span className="font-semibold text-slate-700">Alamat:</span>{' '}
+              <span className="font-semibold text-slate-800">Alamat:</span>{' '}
               Depan wedrink, KOMPLEK PERTOKOAN, Jl. Hang Kesturi Jl. Legenda Malaka No.6, Batam
             </p>
             <p>
-              <span className="font-semibold text-slate-700">Telepon / WhatsApp:</span>{' '}
+              <span className="font-semibold text-slate-800">Telepon / WhatsApp:</span>{' '}
               0813-6170-8899
             </p>
             <p>
-              <span className="font-semibold text-slate-700">Jam Operasional:</span>{' '}
+              <span className="font-semibold text-slate-800">Jam Operasional:</span>{' '}
               Setiap Hari (08.30 – 22.30)
             </p>
           </div>

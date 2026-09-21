@@ -1,60 +1,127 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import Link from 'next/link';
+import Image from 'next/image';
+import { CartProvider } from '@/context/CartContext';
+import { CartBadge } from '@/components/cart/CartBadge';
+import { BottomNav } from '@/components/layout/BottomNav';
+import { Toaster } from 'sonner';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Apotek Fazra Farma',
-  description: 'Solusi Kesehatan Terpercaya untuk Keluarga Anda',
-}
+  title: 'Apotek Fazra Farma - Layanan Kesehatan & Obat Online Terpercaya',
+  description: 'Beli obat bebas, vitamin, resep dokter, dan kebutuhan kesehatan terlengkap dengan pengiriman cepat di Apotek Fazra Farma Batam.',
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="id">
-      {/* pb-20 digunakan agar konten tidak tertutup oleh bottom navbar di mobile */}
-      <body className={`${inter.className} bg-slate-50 text-slate-900 pb-20 md:pb-0 min-h-screen flex flex-col`}>
-        
-        {/* TOP NAVBAR: Tampil di semua ukuran layar (Mobile & Desktop) */}
-        <header className="sticky top-0 z-50 bg-white shadow-sm px-4 md:px-8 py-3 md:py-4 flex items-center justify-between">
-          <a href="/" className="text-xl md:text-2xl font-bold text-emerald-600 hover:text-emerald-700 transition-colors">
-            Apotek Fazra Farma
-          </a>
-          <nav className="hidden md:flex gap-6">
-            <a href="/" className="hover:text-emerald-500 font-medium transition-colors">Beranda</a>
-            <a href="/kategori" className="hover:text-emerald-500 font-medium transition-colors">Kategori</a>
-            <a href="/keranjang" className="hover:text-emerald-500 font-medium transition-colors">Keranjang</a>
-          </nav>
-        </header>
+      <body className={`${inter.className} bg-slate-50 text-slate-900 pb-20 md:pb-0 min-h-screen flex flex-col transition-colors duration-200 antialiased`}>
+        <CartProvider>
+          {/* TOP NAVBAR: Sticky Solid Header */}
+          <header className="sticky top-0 z-50 bg-white border-b border-slate-200 transition-colors">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+              
+              {/* Brand Logo */}
+              <Link href="/" className="flex items-center gap-2.5 group">
+                <Image
+                  src="/logo%20apotik_2.png"
+                  alt="Logo Apotek"
+                  width={180}
+                  height={90}
+                  quality={100}
+                  unoptimized={true}
+                  priority
+                  className="object-contain h-12 w-auto md:h-14 lg:h-16 -ml-2"
+                />
+                <div>
+                  <span className="text-lg md:text-xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent tracking-tight">
+                    Apotek Fazra Farma
+                  </span>
+                  <span className="block text-[10px] text-slate-400 font-medium tracking-wide">
+                    SIA: 503/SIA/123.45/2026
+                  </span>
+                </div>
+              </Link>
 
-        {/* MAIN CONTENT: Menyesuaikan max-width agar rapi di layar besar */}
-        <main className="flex-1 max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 md:py-8">
-          {children}
-        </main>
+              {/* Desktop Nav Links & Controls */}
+              <div className="flex items-center gap-6">
+                <nav className="hidden md:flex items-center gap-6">
+                  <Link
+                    href="/"
+                    prefetch={false}
+                    className="text-sm font-semibold text-slate-700 hover:text-emerald-600 transition-colors"
+                  >
+                    Beranda
+                  </Link>
+                  <Link
+                    href="/kategori"
+                    prefetch={false}
+                    className="text-sm font-semibold text-slate-700 hover:text-emerald-600 transition-colors"
+                  >
+                    Kategori
+                  </Link>
+                  <Link
+                    href="/cara-belanja"
+                    prefetch={false}
+                    className="text-sm font-semibold text-slate-700 hover:text-emerald-600 transition-colors"
+                  >
+                    Cara Belanja
+                  </Link>
+                </nav>
 
-        {/* BOTTOM NAVBAR: Muncul di Mobile (flex), Disembunyikan di Desktop (md:hidden) */}
-        <nav className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-slate-200 flex justify-around py-3 z-50 shadow-[0_-4px_10px_rgba(0,0,0,0.02)] pb-safe">
-          <a href="/" className="flex flex-col items-center text-emerald-600">
-            {/* Icon Home */}
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
-            <span className="text-[10px] font-semibold mt-1">Beranda</span>
-          </a>
-          <a href="/kategori" className="flex flex-col items-center text-slate-400 hover:text-emerald-600 transition-colors">
-            {/* Icon Kategori */}
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
-            <span className="text-[10px] font-semibold mt-1">Kategori</span>
-          </a>
-          <a href="/keranjang" className="flex flex-col items-center text-slate-400 hover:text-emerald-600 transition-colors">
-            {/* Icon Keranjang */}
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z" /></svg>
-            <span className="text-[10px] font-semibold mt-1">Keranjang</span>
-          </a>
-        </nav>
+                <div className="hidden md:flex items-center gap-3 border-l border-slate-200 pl-4 md:pl-6">
+                  {/* Cart Button */}
+                  <Link
+                    href="/keranjang"
+                    prefetch={false}
+                    className="relative p-2 rounded-full text-slate-700 hover:bg-slate-100 transition-colors"
+                    title="Keranjang Belanja"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
+                    {/* Badge Count Indicator Dinamis */}
+                    <CartBadge />
+                  </Link>
+                </div>
+              </div>
+
+            </div>
+          </header>
+
+          {/* MAIN CONTENT */}
+          <main className="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 md:py-8">
+            {children}
+          </main>
+
+          {/* FOOTER */}
+          <footer className="hidden md:block bg-white border-t border-slate-200 py-8 transition-colors">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-slate-800">Apotek Fazra Farma</span>
+                <span>•</span>
+                <span>Solusi Kesehatan Terpercaya Keluarga Anda</span>
+              </div>
+              <div className="flex gap-4">
+                <span>Jl. Legenda Malaka No.6, Batam</span>
+                <span>•</span>
+                <span>WA: 0813-6170-8899</span>
+              </div>
+            </div>
+          </footer>
+
+          {/* BOTTOM NAVBAR (Mobile) – indikator halaman aktif dinamis */}
+          <BottomNav />
+          <Toaster position="top-center" richColors closeButton />
+        </CartProvider>
       </body>
     </html>
-  )
+  );
 }
