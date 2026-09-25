@@ -14,7 +14,10 @@ import {
   Pill,
   X,
   ExternalLink,
-  Clock,
+  HeartPulse,
+  ShieldPlus,
+  Stethoscope,
+  Sparkles,
 } from 'lucide-react';
 
 // ─── Data Produk untuk Autocomplete ──────────────────────────────────────────
@@ -216,80 +219,196 @@ export default function Home() {
       </div>
 
       {/* ═══════════════════════════════════════════════════════════
-          2. HERO BANNER (Modern 2-Column Responsive Layout)
+          2. HERO BANNER — Light Pastel Green | 2 Kolom | No Buttons
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-950 via-emerald-900 to-emerald-800 text-white rounded-3xl p-6 sm:p-8 lg:p-12 shadow-xl shadow-emerald-950/20 border border-emerald-800/40">
-        {/* Ambient Glow Effects */}
-        <div className="absolute -top-24 -left-24 w-96 h-96 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-teal-400/15 rounded-full blur-3xl pointer-events-none" />
-        
-        {/* Subtle geometric pattern overlay */}
-        <div 
-          className="absolute inset-0 opacity-[0.04] pointer-events-none"
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-50 via-teal-50 to-emerald-100 border border-emerald-200/60 shadow-sm">
+        {/* Soft ambient glows */}
+        <div className="absolute -top-20 -left-20 w-72 h-72 bg-emerald-200/40 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-20 -right-20 w-72 h-72 bg-teal-200/30 rounded-full blur-3xl pointer-events-none" />
+        {/* Dot grid overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-            backgroundSize: '24px 24px'
+            opacity: 0.06,
+            backgroundImage: `radial-gradient(circle at 1px 1px, #059669 1px, transparent 0)`,
+            backgroundSize: '22px 22px',
           }}
         />
 
-        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-          {/* Kolom Kiri: Teks & Tombol Aksi */}
-          <div className="lg:col-span-7 space-y-5">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-emerald-200 border border-white/15 text-xs font-semibold backdrop-blur-md shadow-sm">
-              <ShieldCheck className="w-4 h-4 text-emerald-300" />
+        <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-0 items-stretch">
+
+          {/* ── KOLOM KIRI: Hanya Teks (tidak ada tombol) ── */}
+          <div className="flex flex-col justify-center text-left px-8 py-10 sm:px-10 sm:py-12 lg:px-12 lg:py-14">
+            {/* Badge */}
+            <span className="inline-flex items-center gap-2 self-start px-3 py-1.5 mb-5 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-semibold shadow-sm">
+              <ShieldCheck className="w-3.5 h-3.5" />
               Layanan Apotek Resmi &amp; Terpercaya
             </span>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
-              Kesehatan Anda Prioritas Utama Kami
+            {/* Headline */}
+            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-[1.15] mb-4">
+              Pesan Obat{' '}
+              <span className="bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">
+                Lebih Cepat,
+              </span>
+              <br />
+              Tanpa Antre
             </h1>
 
-            <p className="text-emerald-100/90 text-sm sm:text-base leading-relaxed max-w-xl">
-              Pesan obat bebas, tebus resep dokter, dan konsul vitamin dengan mudah, aman, dan tepat waktu.
+            {/* Sub-headline */}
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-sm">
+              Pilih produk kesehatan keluarga secara online, tebus resep dokter, dan ambil langsung pesanan di Apotek Fazra Farma — cepat &amp; praktis.
             </p>
           </div>
 
-          {/* Kolom Kanan: Visual & Trust Badge Glassmorphism */}
-          <div className="lg:col-span-5 w-full">
-            <div className="relative rounded-2xl sm:rounded-3xl bg-gradient-to-br from-emerald-800/50 via-emerald-900/60 to-teal-950/60 border border-white/15 p-5 sm:p-6 flex flex-col gap-4 sm:gap-5 overflow-hidden shadow-inner backdrop-blur-sm">
-              
-              {/* Background ambient glow inside container */}
-              <div className="absolute top-0 right-0 w-48 h-48 bg-teal-400/10 rounded-full blur-2xl pointer-events-none" />
-              <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-emerald-400/10 rounded-full blur-xl pointer-events-none" />
-              
-              {/* Top info badge inside visual container */}
-              <div className="relative z-10 flex items-center">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 backdrop-blur-md text-xs font-medium text-emerald-100 shadow-sm">
-                  <Clock className="w-3.5 h-3.5 text-emerald-300" />
-                  <span>Buka Setiap Hari (08.30 - 22.30)</span>
+          {/* ── KOLOM KANAN: White Card + Orbital Icons ── */}
+          <div className="flex items-center justify-center p-6 sm:p-8 lg:p-10">
+            <div
+              className="relative w-full rounded-3xl bg-white shadow-xl shadow-emerald-900/10 border border-emerald-100 overflow-hidden flex items-center justify-center"
+              style={{ minHeight: '300px', maxWidth: '380px' }}
+            >
+              {/* Card inner glows */}
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-emerald-100/70 rounded-full blur-2xl pointer-events-none" />
+              <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-teal-100/60 rounded-full blur-2xl pointer-events-none" />
+
+              {/* Card dot grid */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  opacity: 0.05,
+                  backgroundImage: `radial-gradient(circle at 1px 1px, #059669 1px, transparent 0)`,
+                  backgroundSize: '16px 16px',
+                }}
+              />
+
+              {/* Orbit ring — outer (dashed) */}
+              <div
+                className="absolute rounded-full border-2 border-dashed border-emerald-200/80 pointer-events-none"
+                style={{ width: '230px', height: '230px' }}
+              />
+              {/* Orbit ring — middle */}
+              <div
+                className="absolute rounded-full border border-emerald-100 pointer-events-none"
+                style={{ width: '150px', height: '150px' }}
+              />
+
+              {/* Composition anchor */}
+              <div
+                className="relative z-10"
+                style={{ width: '270px', height: '270px' }}
+              >
+                {/* ── CENTER: HeartPulse ── */}
+                <div
+                  className="absolute"
+                  style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+                >
+                  {/* Glow halo */}
+                  <div className="absolute -inset-4 rounded-3xl bg-emerald-200/40 blur-lg animate-pulse" />
+                  <div
+                    className="relative flex items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-100 via-green-50 to-teal-50 border-2 border-emerald-300/70 text-emerald-600 shadow-lg shadow-emerald-500/20"
+                    style={{ width: '76px', height: '76px' }}
+                  >
+                    <HeartPulse
+                      className="w-9 h-9 stroke-[1.6]"
+                      style={{ animation: 'pulse 2.4s ease-in-out infinite' }}
+                    />
+                  </div>
+                </div>
+
+                {/* ── TOP CENTER: ShieldPlus ── */}
+                <div
+                  className="absolute"
+                  style={{
+                    top: '10px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    animation: 'bounce 3.2s ease-in-out infinite',
+                  }}
+                >
+                  <div
+                    className="flex items-center justify-center rounded-2xl bg-teal-50 border border-teal-200/80 text-teal-600 shadow-md shadow-teal-500/15"
+                    style={{ width: '54px', height: '54px' }}
+                  >
+                    <ShieldPlus className="w-6 h-6 stroke-[1.8]" />
+                  </div>
+                </div>
+
+                {/* ── BOTTOM LEFT: Pill ── */}
+                <div
+                  className="absolute"
+                  style={{
+                    bottom: '10px',
+                    left: '18px',
+                    animation: 'pulse 3s ease-in-out infinite',
+                  }}
+                >
+                  <div
+                    className="flex items-center justify-center rounded-2xl bg-emerald-50 border border-emerald-200/80 text-emerald-600 shadow-md shadow-emerald-500/15"
+                    style={{ width: '54px', height: '54px' }}
+                  >
+                    <Pill
+                      className="w-6 h-6 stroke-[1.8]"
+                      style={{ transform: 'rotate(-40deg)' }}
+                    />
+                  </div>
+                </div>
+
+                {/* ── BOTTOM RIGHT: Stethoscope ── */}
+                <div
+                  className="absolute"
+                  style={{
+                    bottom: '10px',
+                    right: '18px',
+                    animation: 'bounce 4s ease-in-out infinite',
+                  }}
+                >
+                  <div
+                    className="flex items-center justify-center rounded-2xl bg-teal-50 border border-teal-200/80 text-teal-600 shadow-md shadow-teal-500/15"
+                    style={{ width: '54px', height: '54px' }}
+                  >
+                    <Stethoscope className="w-6 h-6 stroke-[1.8]" />
+                  </div>
+                </div>
+
+                {/* ── LEFT MIDDLE: Sparkles micro ── */}
+                <div
+                  className="absolute"
+                  style={{
+                    top: '50%',
+                    left: '4px',
+                    transform: 'translateY(-50%)',
+                    animation: 'pulse 2.6s ease-in-out infinite',
+                  }}
+                >
+                  <div
+                    className="flex items-center justify-center rounded-full bg-emerald-100 border border-emerald-200 text-emerald-500 shadow-sm"
+                    style={{ width: '30px', height: '30px' }}
+                  >
+                    <Sparkles className="w-3.5 h-3.5" />
+                  </div>
+                </div>
+
+                {/* ── RIGHT MIDDLE: Sparkles micro ── */}
+                <div
+                  className="absolute"
+                  style={{
+                    top: '50%',
+                    right: '4px',
+                    transform: 'translateY(-50%)',
+                    animation: 'pulse 3.2s ease-in-out infinite',
+                  }}
+                >
+                  <div
+                    className="flex items-center justify-center rounded-full bg-teal-100 border border-teal-200 text-teal-500 shadow-sm"
+                    style={{ width: '30px', height: '30px' }}
+                  >
+                    <Sparkles className="w-3.5 h-3.5" />
+                  </div>
                 </div>
               </div>
-
-              {/* Glassmorphism Credentials Trust Badge */}
-              <div className="relative z-10 bg-white/15 backdrop-blur-md border border-white/25 rounded-xl sm:rounded-2xl p-4 sm:p-5 text-white shadow-xl">
-                <div className="flex items-center gap-2.5 font-bold text-white text-xs sm:text-sm">
-                  <div className="w-7 h-7 rounded-lg bg-emerald-500/30 border border-emerald-300/40 flex items-center justify-center text-emerald-300 flex-shrink-0">
-                    <ShieldCheck className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="block leading-tight">Izin Resmi Kemenkes &amp; BPOM</span>
-                    <span className="text-[10px] text-emerald-200 font-normal">Legalitas Terverifikasi &amp; Resmi</span>
-                  </div>
-                </div>
-                <div className="mt-2.5 pt-2.5 border-t border-white/15 text-[10px] sm:text-[11px] font-mono text-emerald-100 space-y-1.5">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-white/75 shrink-0">SIPA :</span>
-                    <span className="font-semibold text-white tracking-wide text-right">85/SIPAR/DPMPTSP-BTM/01/V/2024</span>
-                  </div>
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-white/75 shrink-0">STRA :</span>
-                    <span className="font-semibold text-white tracking-wide text-right">DD00001169357195</span>
-                  </div>
-                </div>
-              </div>
-
             </div>
           </div>
+
         </div>
       </section>
 
