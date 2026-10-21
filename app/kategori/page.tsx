@@ -182,7 +182,7 @@ const categories = [
 
 export default function KategoriPage() {
   return (
-    <section className="space-y-6 pb-12">
+    <section className="flex-1 flex-grow space-y-6 pb-8">
       <div>
         <h1 className="text-2xl md:text-3xl font-extrabold text-slate-800 tracking-tight">
           Kategori Produk

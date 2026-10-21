@@ -72,7 +72,7 @@ function QrisPaymentContent() {
   }, [router, nama, orderId]);
 
   return (
-    <div className="flex flex-col items-center min-h-[70vh] pb-24 md:pb-8">
+    <div className="flex-grow flex flex-col items-center pb-8">
       {/* Header Komponen Atas */}
       <div className="w-full max-w-md text-center px-4 pt-4 space-y-1">
         <div className="flex justify-center mb-3">

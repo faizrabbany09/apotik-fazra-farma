@@ -100,7 +100,7 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="space-y-6 pb-28 md:pb-8">
+    <div className="flex-grow space-y-6 pb-8">
       {/* Header */}
       <div>
         <button

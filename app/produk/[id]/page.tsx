@@ -99,7 +99,7 @@ export default function ProductDetail({ params }: { params: Promise<{ id: string
 
   return (
     <>
-      <div className="space-y-6 pb-24 md:pb-0 relative z-0">
+      <div className="flex-grow space-y-6 pb-8 relative z-0">
         {/* Tombol Kembali */}
         <Link href="/" className="inline-flex items-center text-sm font-medium text-slate-500 hover:text-emerald-600 transition-colors">
           <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>

@@ -46,7 +46,7 @@ export default function CaraBelanja() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen pb-16 space-y-6">
+    <section className="flex-1 flex-grow space-y-6 pb-8">
 
       {/* ── HEADER ─────────────────────────────────────────────────── */}
       <div>
@@ -167,34 +167,8 @@ export default function CaraBelanja() {
           </div>
         </div>
 
-        {/* ── INFO APOTEK ─────────────────────────────────────────────── */}
-        <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 md:p-6 space-y-2">
-          <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider">
-            📍 Lokasi Apotek
-          </h3>
-          <div className="text-xs text-slate-600 space-y-1 leading-relaxed">
-            <p>
-              <span className="font-semibold text-slate-800">Alamat:</span>{' '}
-              Depan wedrink, KOMPLEK PERTOKOAN, Jl. Hang Kesturi Jl. Legenda Malaka No.6, Batam
-            </p>
-            <p>
-              <span className="font-semibold text-slate-800">Telepon / WhatsApp:</span>{' '}
-              0813-6170-8899
-            </p>
-            <p>
-              <span className="font-semibold text-slate-800">Jam Operasional:</span>{' '}
-              Setiap Hari (08.30 – 22.30)
-            </p>
-          </div>
-        </div>
-
       </div>
 
-      {/* ── TAGLINE PENUTUP ─────────────────────────────────────────── */}
-      <p className="mt-10 text-center text-sm italic text-slate-400">
-        &ldquo;Kesehatan Anda Prioritas Kami&rdquo;
-      </p>
-
-    </div>
+    </section>
   );
 }

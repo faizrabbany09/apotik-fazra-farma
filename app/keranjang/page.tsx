@@ -23,7 +23,7 @@ export default function KeranjangPage() {
   const isEmpty = cartItems.length === 0;
 
   return (
-    <div className="space-y-6 pb-28 md:pb-8">
+    <div className="flex-grow space-y-6 pb-8">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>

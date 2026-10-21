@@ -11,7 +11,7 @@ function SuccessContent() {
   const orderId = searchParams.get('orderId') || 'FZ-' + Math.floor(1000 + Math.random() * 9000);
 
   return (
-    <div className="flex items-center justify-center min-h-[75vh] py-8 pb-24 md:pb-8">
+    <div className="flex-grow flex items-center justify-center py-8 pb-8">
       <div className="w-full max-w-md text-center space-y-6 px-4">
 
         {/* Icon Centang Hijau */}
